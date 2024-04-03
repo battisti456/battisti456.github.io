@@ -28,5 +28,6 @@ function serve_html() {
     const path = window.location.search;
     const main = document.getElementById("main");
     main.innerHTML = fetch_full_entry(path);
+    console.log(path)
 }
 window.onload = onload;
