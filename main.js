@@ -1,6 +1,6 @@
-const PROJECTS_PATH = "projects"
+const PROJECTS_PATH = "projects";
 
-const converter = new showdown.Converter()
+const converter = new showdown.Converter();
 
 function test() {
     var converter = new showdown.Converter();
@@ -10,24 +10,18 @@ function test() {
         dest.innerHTML = converter.makeHtml(text);
     }).catch(error => console.error(error));
 }
-function onload() {
-    serve_html();
+async function onload() {
+    await serve_html();
 }
-function fetch_full_entry(path) {
-    let html = "";
-    fetch(PROJECTS_PATH +'\\' + path+'\\' + "content.md").then(
-        res => res.text()
-    ).then(
-        text => {
-            html = converter.makeHtml(text);
-        }
-    )
+async function fetch_full_entry(path) {
+    let raw_md = await fetch(PROJECTS_PATH +'/' + path+'/' + "content.md");
+    let html = converter.makeHtml(await raw_md.text());
     return html;
 }
-function serve_html() {
-    const path = window.location.search;
+async function serve_html() {
+    const path = window.location.search.substring(1);
     const main = document.getElementById("main");
-    main.innerHTML = fetch_full_entry(path);
-    console.log(path)
+    let html = await fetch_full_entry(path);
+    main.innerHTML = html;
 }
-window.onload = onload;
+window.addEventListener('load',onload);
