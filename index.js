@@ -17,8 +17,9 @@ var granimInstance = new Granim({
     direction: 'top-bottom',
     isPausedWhenNotInView: true,
     image : {
-        source: 'assets/pullman_frosty.jpg', //change image for intro section if desired
+        source: 'assets/pullman_frosty_cropped.jpg', //change image for intro section if desired
         blendingMode: 'multiply',
+        // stretchMode: ['stretch','stretch']
     },
     states : {
         "default-state": {
